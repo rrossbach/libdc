@@ -109,10 +109,10 @@ typedef struct hw_ostc_layout_t {
 	unsigned int salinity;
 	unsigned int avgdepth;
 	unsigned int duration;
-	unsigned int temperature;
+	//unsigned int temperature;
 	unsigned int battery;
 	unsigned int desat;
-	unsigned int firmware;
+	//unsigned int firmware;
 	unsigned int deco_info1;
 	unsigned int deco_info2;
 	unsigned int decomode;
@@ -168,10 +168,10 @@ static const hw_ostc_layout_t hw_ostc_layout_ostc = {
 	43, /* salinity */
 	45, /* avgdepth */
 	47, /* duration */
-	13, /* temperature */
+//	13, /* temperature */
 	34, /* battery volt after dive */
 	17, /* desat */
-	32, /* firmware */
+//	32, /* firmware */
 	49, /* deco_info1 */
 	50, /* deco_info1 */
 	51, /* decomode */
@@ -189,10 +189,10 @@ static const hw_ostc_layout_t hw_ostc_layout_frog = {
 	43, /* salinity */
 	45, /* avgdepth */
 	47, /* duration */
-	19, /* temperature */
+//	19, /* temperature */
 	34, /* battery volt after dive */
 	23, /* desat */
-	32, /* firmware */
+//	32, /* firmware */
 	49, /* deco_info1 */
 	50, /* deco_info2 */
 	51, /* decomode */
@@ -210,10 +210,10 @@ static const hw_ostc_layout_t hw_ostc_layout_ostc3 = {
 	70, /* salinity */
 	73, /* avgdepth */
 	75, /* duration */
-	22, /* temperature */
+//	22, /* temperature */
 	50, /* battery volt after dive */
 	26, /* desat */
-	48, /* firmware */
+//	48, /* firmware */
 	77, /* deco_info1 */
 	78, /* deco_info2 */
 	79, /* decomode */
