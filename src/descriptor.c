@@ -62,6 +62,7 @@ static int dc_filter_divesystem (dc_transport_t transport, const void *userdata,
 static int dc_filter_oceanic (dc_transport_t transport, const void *userdata, void *params);
 static int dc_filter_mclean (dc_transport_t transport, const void *userdata, void *params);
 static int dc_filter_atomic (dc_transport_t transport, const void *userdata, void *params);
+static int dc_filter_deepsix (dc_transport_t transport, const void *userdata, void *params);
 
 // Not merged upstream yet
 static int dc_filter_garmin (dc_transport_t transport, const void *userdata, void *params);
@@ -297,6 +298,7 @@ static const dc_descriptor_t g_descriptors[] = {
 	{"Mares", "Icon HD",           DC_FAMILY_MARES_ICONHD , 0x14, DC_TRANSPORT_SERIAL, NULL},
 	{"Mares", "Icon HD Net Ready", DC_FAMILY_MARES_ICONHD , 0x15, DC_TRANSPORT_SERIAL, NULL},
 	{"Mares", "Puck Pro",          DC_FAMILY_MARES_ICONHD , 0x18, DC_TRANSPORT_SERIAL | DC_TRANSPORT_BLE, dc_filter_mares},
+	{"Mares", "Puck Pro +",        DC_FAMILY_MARES_ICONHD , 0x18, DC_TRANSPORT_SERIAL | DC_TRANSPORT_BLE, dc_filter_mares},
 	{"Mares", "Nemo Wide 2",       DC_FAMILY_MARES_ICONHD , 0x19, DC_TRANSPORT_SERIAL, NULL},
 	{"Mares", "Genius",            DC_FAMILY_MARES_ICONHD , 0x1C, DC_TRANSPORT_SERIAL | DC_TRANSPORT_BLE, dc_filter_mares},
 	{"Mares", "Puck 2",            DC_FAMILY_MARES_ICONHD , 0x1F, DC_TRANSPORT_SERIAL, NULL},
@@ -436,6 +438,12 @@ static const dc_descriptor_t g_descriptors[] = {
 	{"Deepblu", "Cosmiq+", DC_FAMILY_DEEPBLU, 0, DC_TRANSPORT_BLE, dc_filter_deepblu},
 	/* Oceans S1 */
 	{ "Oceans", "S1", DC_FAMILY_OCEANS_S1, 0, DC_TRANSPORT_BLE, dc_filter_oceans },
+
+	/* Deep Six Excursion */
+	{"Deep Six", "Excursion", DC_FAMILY_DEEPSIX_EXCURSION, 0, DC_TRANSPORT_BLE, dc_filter_deepsix},
+	{"Crest",    "CR-4",      DC_FAMILY_DEEPSIX_EXCURSION, 0, DC_TRANSPORT_BLE, dc_filter_deepsix},
+	{"Genesis",  "Centauri",  DC_FAMILY_DEEPSIX_EXCURSION, 0, DC_TRANSPORT_BLE, dc_filter_deepsix},
+	{"Tusa",     "TC1",       DC_FAMILY_DEEPSIX_EXCURSION, 0, DC_TRANSPORT_BLE, dc_filter_deepsix},
 };
 
 static int
@@ -753,6 +761,22 @@ static int dc_filter_deepblu (dc_transport_t transport, const void *userdata, vo
 {
 	static const char * const bluetooth[] = {
 		"COSMIQ",
+	};
+
+	if (transport == DC_TRANSPORT_BLE) {
+		return DC_FILTER_INTERNAL (userdata, bluetooth, 0, dc_match_name);
+	}
+
+	return 1;
+}
+
+static int dc_filter_deepsix (dc_transport_t transport, const void *userdata, void *params)
+{
+	static const char * const bluetooth[] = {
+		"EXCURSION",
+		"Crest-CR4",
+		"CENTAURI",
+		"TC1",
 	};
 
 	if (transport == DC_TRANSPORT_BLE) {
